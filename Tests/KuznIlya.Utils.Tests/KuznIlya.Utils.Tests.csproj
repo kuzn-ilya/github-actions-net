@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="../Tests.props" />
+
+  <PropertyGroup Label="FineCodeCoverage">
+    <Enabled>True</Enabled>
+    <Include>[*]*</Include>
+    <ExcludeByFile>
+      **/Epam.GraphQL.TestHelpers/**
+    </ExcludeByFile>
+    <IncludeTestAssembly>False</IncludeTestAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\KuznIlya.Utils\KuznIlya.Utils.csproj" />
+  </ItemGroup>
+
+</Project>
