@@ -31,22 +31,18 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
       - name: Install dependencies
-        working-directory: src
         run: dotnet restore
       - name: Build solution [Release]
-        working-directory: src
         run: dotnet build --no-restore -c Release -p:Version=$ref
       - name: Pack solution [Release]
-        working-directory: src
         run: dotnet pack --no-restore -c Release -p:Version=$ref -o out
       - name: Upload Nuget packages as workflow artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Nuget packages
           path: |
-            src/out/*
+            out/*
       - name: Publish Nuget packages to Nuget registry
-        working-directory: src
         run: dotnet nuget push "out/*" -k ${{secrets.NUGET_TOKEN}}
       - name: Upload Nuget packages and documentation as release artifacts
         uses: actions/github-script@v5
@@ -56,7 +52,7 @@ jobs:
             const fs = require('fs').promises;
             const { repo: { owner, repo }, sha } = context;
 
-            for (let file of await fs.readdir('src/out')) {
+            for (let file of await fs.readdir('out')) {
               console.log('uploading', file);
 
               await github.repos.uploadReleaseAsset({
@@ -64,6 +60,6 @@ jobs:
                 repo,
                 release_id: ${{ github.event.release.id }},
                 name: file,
-                data: await fs.readFile(`src/out/${file}`)
+                data: await fs.readFile(`out/${file}`)
               });
             }
