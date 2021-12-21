@@ -35,7 +35,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Install dependencies
     - name: Pack solution [Release]
       run: dotnet pack --no-restore -c Release -p:Version=$ref -o out
     - uses: actions/upload-artifact@v2
