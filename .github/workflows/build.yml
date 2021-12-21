@@ -18,8 +18,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Build
-      run: dotnet build --configuration Release
+    - name: Restore solution
+      run: dotnet restore
+    - name: Build solution [Release]
+      run: dotnet build --no-restore -c Release -p:Version=$ref
     - name: Test
       run: dotnet test --no-build --configuration Release
   pack:
@@ -33,8 +35,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Pack
-      run: dotnet pack --output artifacts --configuration Release
+    - name: Install dependencies
+    - name: Pack solution [Release]
+      run: dotnet pack --no-restore -c Release -p:Version=$ref -o out
     - uses: actions/upload-artifact@v2
       with:
         name: artifacts
