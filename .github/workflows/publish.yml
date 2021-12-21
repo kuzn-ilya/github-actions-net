@@ -23,6 +23,8 @@ jobs:
           ref="${github_ref:10}"
           echo $ref
           echo "ref=$ref" >> $GITHUB_ENV
+      - name: ls
+        run: ls
       - name: Use .NET Core 3.1 SDK
         uses: actions/setup-dotnet@v1
         with:
@@ -31,7 +33,6 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
       - name: Install dependencies
-        working-directory: 
         run: dotnet restore
       - name: Build solution [Release]
         run: dotnet build --no-restore -c Release -p:Version=$ref
