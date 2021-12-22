@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
-    <VersionPrefix>0.0.4-preview</VersionPrefix>
+    <VersionPrefix>0.0.5-preview</VersionPrefix>
     <Deterministic>true</Deterministic>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
